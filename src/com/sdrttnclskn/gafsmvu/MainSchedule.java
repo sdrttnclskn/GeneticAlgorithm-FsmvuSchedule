@@ -24,9 +24,8 @@ public class MainSchedule {
 		System.out.print("> Generation # "+generationNumber);
 		System.out.print("  Schedule # |                                  ");
 		System.out.print("Classes [dept,class,room,instructor,meeting-time]       ");
-		System.out.println("                                  |Fitness | Conflicts ");
-		System.out.println(".................................................................");
-		System.out.println("-------------------------------------------------------------------------");
+		System.out.println("                                               |Fitness | Conflicts ");
+		System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(mainSchedule.data);
 		Population population = new Population(MainSchedule.POPULATION_SIZE,mainSchedule.data).sortByFitness();
 		population.getSchedules().forEach(schedule -> System.out.println("     "+mainSchedule.scheduleNumb++ + 
@@ -36,12 +35,11 @@ public class MainSchedule {
 		mainSchedule.printScheduleAsTable(population.getSchedules().get(0), generationNumber);
 		mainSchedule.classNumb= 1;
 		while (population.getSchedules().get(0).getFitness() != 1.0) {
-			System.out.print("> Generation # "+ ++generationNumber);
+			System.out.println("> Generation # "+ ++generationNumber);
 			System.out.print("  Schedule # |                                  ");
-			System.out.print("Classes [dept,class,room,instructor,meeting-time]       ");
-			System.out.println("                                  |Fitness | Conflicts ");
-			System.out.println(".................................................................");
-			System.out.println("-------------------------------------------------------------------------");
+			System.out.print("Classes [dept,class,room,instructor,meeting-time]");
+			System.out.println("                                                                                  | Fitness | Conflicts ");
+			System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 			population = geneticAlgorithm.evolve(population).sortByFitness();
 			population.getSchedules().forEach(schedule -> System.out.println("     "+mainSchedule.scheduleNumb++ + 
 				                                                    	"      | "+ schedule + " | " + String.format("%.5f", schedule.getFitness()) + 
@@ -49,17 +47,19 @@ public class MainSchedule {
 	       
 			mainSchedule.printScheduleAsTable(population.getSchedules().get(0), generationNumber);
 			mainSchedule.classNumb= 1;
+		
 		}
+	
 	}
+	
 	
 	private void printScheduleAsTable (Schedule schedule, int generation){
 
 		ArrayList<Class>classes = schedule.getClasses();
 		System.out.print("\n                     ");
-		System.out.print("Class # | Dept | Course (number, max # of students ) | Room (Capacity) | Instuctor (Id) | Meeting Time (Id)  ");
+		System.out.println("Class # | Dept   | Course (number, max # of students ) | Room (Capacity) |       Instuctor (Id)    |   Meeting Time (Id)  ");
 		System.out.print("                     ");
-		System.out.print("-----------------------------------------------");
-		System.out.println("--------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------------------------------------------------------------------------");
 		classes.forEach(x ->{
 			int majorIndex= data.getDepts().indexOf(x.getDept());
 			int coursesIndex = data.getCourses().indexOf(x.getCourse());
@@ -67,21 +67,20 @@ public class MainSchedule {
 			int instructorsIndex= data.getInstructors().indexOf(x.getInstructor());
 			int meetinTimeIndex = data.getMeetingTimes().indexOf(x.getMeetingTime());
 			System.out.print("                     ");
-			System.out.print(String.format(" %1$02d ", classNumb)+ " | ");
+			System.out.print(String.format(" %1$02d ", classNumb)+ "    | ");
 			System.out.print(String.format(" %1$4s ", data.getDepts().get(majorIndex).getName())+ " | ");
-			System.out.print(String.format(" %1$21s ", data.getCourses().get(coursesIndex).getName() + "("+data.getCourses().get(coursesIndex).getNumber() +", "
-			                              +x.getCourse().getMaxNumbOfStudents())+ ")        | ");
-			System.out.print(String.format(" %1$10s ", data.getRooms().get(roomIndex).getNumber() + "("+x.getRoom().getSeatingCapacity())+ ")   | ");
-			System.out.print(String.format(" %1$15s ", data.getInstructors().get(instructorsIndex).getName() +
-					"("+data.getInstructors().get(instructorsIndex).getId())+ ")  + | ");
+			System.out.print(String.format(" %1$21s ", data.getCourses().get(coursesIndex).getName() + "("+data.getCourses().get(coursesIndex).getNumber() + ", "
+			                              +x.getCourse().getMaxNumbOfStudents())+ ")           |");
+			System.out.print(String.format(" %1$10s ", data.getRooms().get(roomIndex).getNumber() + "("+x.getRoom().getSeatingCapacity())+ ")     | ");
+			System.out.print(String.format(" %1$15s ", data.getInstructors().get(instructorsIndex).getName()  +
+					" ( " +data.getInstructors().get(instructorsIndex).getId())+ ")"  +  "      | ");
 			System.out.println(data.getMeetingTimes().get(meetinTimeIndex).getTime() + "("+data.getMeetingTimes().get(meetinTimeIndex).getId()+") ");
 			classNumb++;
 		});
 		
 		if(schedule.getFitness() == 1) System.out.println("> Solution Found in "+ (generation + 1) + " generations");
-		System.out.print("---------------------------------------------------------------------");
-		System.out.println("-----------------------------------------------------------------------");
- }		
+		System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+	}		
 	
 	
 	private void printAvailableData() {
