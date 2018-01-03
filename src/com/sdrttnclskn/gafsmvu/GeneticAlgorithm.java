@@ -35,7 +35,7 @@ public class GeneticAlgorithm {
 		return crossoverPopulation;
 	}
 
-	/******************** Crossover Methods ********************************/
+	/******************* Crossover Methods *******************************/
 
 	/***** OnePointCrossover *******/
 
