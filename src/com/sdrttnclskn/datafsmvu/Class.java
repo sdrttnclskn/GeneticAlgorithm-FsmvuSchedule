@@ -1,5 +1,7 @@
 package com.sdrttnclskn.datafsmvu;
 
+import com.sdrttnclskn.datafsmvu.Room;
+
 public class Class {
 
 	private int id;
@@ -8,47 +10,56 @@ public class Class {
 	private Instructor instructor;
 	private MeetingTime meetingTime;
 	private Room room;
+
 	public Class(int id, Department dept, Course course) {
 		super();
 		this.id = id;
 		this.dept = dept;
 		this.course = course;
-	
+
 	}
+
 	public void setInstructor(Instructor instructor) {
 		this.instructor = instructor;
 	}
+
 	public void setMeetingTime(MeetingTime meetingTime) {
 		this.meetingTime = meetingTime;
 	}
+
 	public void setRoom(Room room) {
 		this.room = room;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public Department getDept() {
 		return dept;
 	}
+
 	public Course getCourse() {
 		return course;
 	}
+
 	public Instructor getInstructor() {
 		return instructor;
 	}
+
 	public MeetingTime getMeetingTime() {
 		return meetingTime;
 	}
+
 	public Room getRoom() {
 		return room;
 	}
+
 	@Override
-	
+
 	public String toString() {
-		return  "[ " +dept.getName() +","+course.getNumber()+" , "+room.getNumber()+"," +instructor.getId()+", "+ meetingTime.getId()+ "]";
+		return "[ " + dept.getName() + "," + course.getNumber() + " , " + room.getNumber() + "," + instructor.getId()
+				+ ", " + meetingTime.getId() + "]";
 	}
-	
-	
-	
-	
+
 }
